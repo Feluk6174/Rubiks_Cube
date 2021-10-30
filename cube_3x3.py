@@ -3,6 +3,7 @@ import random
 class cube():
 	def __init__(self):
 		self.colors = ["o", "w", "r", "y", "g", "b"]
+		self.colors_in_order = ["w", "g", "r", "b", "o", "y"]
 		self.cube = {}
 		for color in self.colors:
 			self.cube[color] = {}
@@ -155,9 +156,22 @@ class cube():
 			self.b()
 
 	def scramble(self, scramble:str=""):
+		#wwwwwwwww
 		if scramble != "":
-			pass
+			for i, color in enumerate(self.colors_in_order):
+				self.cube[color] = {"corner": [scramble[i*9+0], scramble[i*9+2], scramble[i*9+8], scramble[i*9+6]], "edge": [scramble[i*9+1], scramble[i*9+5], scramble[i*9+7], scramble[i*9+3]]}
 		else:
 			for i in range(40):
 				x = random.randint(0,17)
 				self.move(self.moves[x])
+
+def test_manual():
+	c = cube()
+	scramble = "wyywwywwyggbggbggbrrorrorrobbgbbgbbgoorooroorywwyywyyw"
+	c.scramble(scramble=scramble)
+	print(c)
+
+	while True:
+		move = input("	>> ")
+		c.move(move)
+		print(c)

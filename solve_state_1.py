@@ -2,6 +2,17 @@ import cube_3x3
 
 cube = cube_3x3.cube()
 
+cube.scramble()
+
+def check_moves(pos:dict, moves:list):
+    cube = cube_3x3.cube()
+    cube.cube = pos
+
+    for move in moves:
+        cube.move(move)
+
+    print(cube)
+
 def gen_possible_moves(moves:list):
     if not len(moves) == 0:
         omite_face = moves[-1]
@@ -41,17 +52,18 @@ def gen_possible_moves(moves:list):
     #print(omite_face, possible_moves)
     return possible_moves
 
-def gen_moves(d:int, m_d:int, moves:list, possible_moves:list):
+def gen_moves(d:int, m_d:int, moves:list, possible_moves:list, pos:dict):
     if d == m_d:
         return
     for i in range(len(possible_moves)):
         moves.append(possible_moves[i])
         print(moves)
-        gen_moves(d+1, m_d, moves, gen_possible_moves(moves))
+        check_moves(pos, moves)
+        gen_moves(d+1, m_d, moves, gen_possible_moves(moves), pos)
         moves.pop(-1)
 
 possible_moves = gen_possible_moves([])
 
 print(possible_moves)
 
-gen_moves(0, 20, [], possible_moves)
+gen_moves(0, 20, [], possible_moves, cube.cube)
