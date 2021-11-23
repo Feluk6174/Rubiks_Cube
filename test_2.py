@@ -1,2 +1,6 @@
-l = [1, 2, 3, 4]
-print(l[-2])
+import cube_3x3
+cube = cube_3x3.cube()
+
+
+cube.scramble(scramble="wyywwywwyggbggbggbrrorrorrobbgbbgbbgoorooroorywwyywyyw")
+print(cube.get_state())
