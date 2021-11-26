@@ -10,15 +10,8 @@ class cube():
 		# 3 - 1
 		# 3 2 2
 
-		self.colors = ["o", "w", "r", "y", "g", "b"]
 		self.colors_in_order = ["w", "g", "r", "b", "o", "y"]
-		self.cube = {}
-		for color in self.colors:
-			self.cube[color] = {}
-			self.cube[color]["edge"] = [color for i in range(4)]
-			self.cube[color]["corner"] = [color for i in range(4)]
-			
-		self.moves = ["u", "u'", "u2", "r", "r'", "r2", "l", "l'", "l2", "d", "d'", "d2", "f", "f'", "f2", "b", "b'", "b2"]
+		self.cube = {"w": {"edge": ["w", "w", "w", "w"], "corner": ["w", "w", "w", "w"]}, "g": {"edge": ["g", "g", "g", "g"], "corner": ["g", "g", "g", "g"]}, "r": {"edge": ["r", "r", "r", "r"], "corner": ["r", "r", "r", "r"]}, "b": {"edge": ["b", "b", "b", "b"], "corner": ["b", "b", "b", "b"]}, "o": {"edge": ["o", "o", "o", "o"], "corner": ["o", "o", "o", "o"]}, "y": {"edge": ["y", "y", "y", "y"], "corner": ["y", "y", "y", "y"]}}
 			
 			
 	def __str__(self):
@@ -113,7 +106,7 @@ class cube():
 		self.turn_side("b", d)
 
 	
-	def move(self, move):
+	def move(self, move:str):
     	#This function calls the function of the corresponden face, ih a variable that gets passed, iths the recomended function to acces
 		if move == "u":
 			self.u()
@@ -177,12 +170,13 @@ class cube():
 
 	def scramble(self, scramble:str=""):
 		if scramble != "":
-			for i, color in enumerate(self.colors_in_order):
-				self.cube[color] = {"corner": [scramble[i*9+0], scramble[i*9+2], scramble[i*9+8], scramble[i*9+6]], "edge": [scramble[i*9+1], scramble[i*9+5], scramble[i*9+7], scramble[i*9+3]]}
+			self.cube = {"w": {"corner": [scramble[0*9+0], scramble[0*9+2], scramble[0*9+8], scramble[0*9+6]], "edge": [scramble[0*9+1], scramble[0*9+5], scramble[0*9+7], scramble[0*9+3]]}, "g": {"corner": [scramble[1*9+0], scramble[1*9+2], scramble[1*9+8], scramble[1*9+6]], "edge": [scramble[1*9+1], scramble[1*9+5], scramble[1*9+7], scramble[1*9+3]]}, "r": {"corner": [scramble[2*9+0], scramble[2*9+2], scramble[2*9+8], scramble[2*9+6]], "edge": [scramble[2*9+1], scramble[2*9+5], scramble[2*9+7], scramble[2*9+3]]}, "b": {"corner": [scramble[3*9+0], scramble[3*9+2], scramble[3*9+8], scramble[3*9+6]], "edge": [scramble[3*9+1], scramble[3*9+5], scramble[3*9+7], scramble[3*9+3]]}, "o": {"corner": [scramble[4*9+0], scramble[4*9+2], scramble[4*9+8], scramble[4*9+6]], "edge": [scramble[4*9+1], scramble[4*9+5], scramble[4*9+7], scramble[4*9+3]]}, "y": {"corner": [scramble[5*9+0], scramble[5*9+2], scramble[5*9+8], scramble[5*9+6]], "edge": [scramble[5*9+1], scramble[0*9+5], scramble[0*9+7], scramble[0*9+3]]},}
 		else:
-			for i in range(40):
+
+			moves = ["u", "u'", "u2", "r", "r'", "r2", "l", "l'", "l2", "d", "d'", "d2", "f", "f'", "f2", "b", "b'", "b2"]
+			for i in range(5):
 				x = random.randint(0,17)
-				self.move(self.moves[x])
+				self.move(moves[x])
 
 
 	def get_state(self):
@@ -264,3 +258,19 @@ class cube():
 							if self.cube["b"]["edge"].count("b")==4 and self.cube["b"]["corner"].count("b")==4:
 								return True
 		return False
+
+if __name__ == "__main__":
+	import cube_3x3	
+			
+	cub = cube_3x3.cube()
+
+	while True:
+		print(cub)
+		x = input("	>> ")
+		if x == "e":
+			print(cub.get_state())
+			break
+		elif x == "s":
+			cub.scramble()
+		else:
+			cub.move(x)

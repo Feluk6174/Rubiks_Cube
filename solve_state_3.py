@@ -32,40 +32,39 @@ def gen_possible_moves(moves:list):
     #print(omite_face, possible_moves)
     return possible_moves
 
-def move(moves:list):
-    scramble = "wyywwywwyggbggbggbrrorrorrobbgbbgbbgoorooroorywwyywyyw"
+def move(moves:list, scramble:str):
     cube = cube_3x3.cube()
-    cube.move("u2")
-    cube.move("d2")
-    cube.move("r2")
+    cube.scramble(scramble=scramble)
     
     for move in moves:
         cube.move(move)
-    if cube.solved_3():
-        print(cube)
-    return cube.solved_3()
+    return (cube.solved_3(), cube.get_state())
 
-def gen_moves(d:int, m_d:int, moves:list, possible_moves:list):
+def gen_moves(d:int, m_d:int, moves:list, possible_moves:list, scramble:str):
     if d == m_d:
-        return
+        return (False, None, None)
     for i in range(len(possible_moves)):
         moves.append(possible_moves[i])
-        print(moves)
-        if gen_moves(d+1, m_d, moves, gen_possible_moves(moves)):
-            return True
-        if move(moves):
-            return True
+        solved = gen_moves(d+1, m_d, moves, gen_possible_moves(moves),scramble)
+        if solved[0]:
+            return solved
+        if d == m_d-1:
+            solved = move(moves, scramble)
+            if solved[0]:
+                return (solved[0], solved[1], moves)
         moves.pop(-1)
+    return (False, None, None)
 
-possible_moves = gen_possible_moves([])
+def solve(scramble:str):
+    possible_moves = gen_possible_moves([])
 
+    i = 0
 
+    for i in range(20):
+        solved = gen_moves(0, i, [], possible_moves, scramble)
+        print(f"Step 3, depth: {i}")
+        if solved[0]:
+            break
 
-print(possible_moves)
-
-i = 0
-
-while True:
-    if gen_moves(0, i, [], possible_moves):
-        break
-    i += 1
+    print(solved)
+    return solved

@@ -10,6 +10,7 @@ while True:
 	print(cub)
 	x = input("	>> ")
 	if x == "e":
+		print(cub.get_state())
 		break
 	elif x == "s":
 		cub.scramble()
