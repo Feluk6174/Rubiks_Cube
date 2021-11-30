@@ -86,4 +86,7 @@ def solve(scramble:str):
 
 
     print(solved)
+    cube = cube_3x3.cube()
+    cube.scramble(solved[1])
+    print(cube)
     return solved

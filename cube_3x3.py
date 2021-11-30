@@ -170,11 +170,16 @@ class cube():
 
 	def scramble(self, scramble:str=""):
 		if scramble != "":
-			self.cube = {"w": {"corner": [scramble[0*9+0], scramble[0*9+2], scramble[0*9+8], scramble[0*9+6]], "edge": [scramble[0*9+1], scramble[0*9+5], scramble[0*9+7], scramble[0*9+3]]}, "g": {"corner": [scramble[1*9+0], scramble[1*9+2], scramble[1*9+8], scramble[1*9+6]], "edge": [scramble[1*9+1], scramble[1*9+5], scramble[1*9+7], scramble[1*9+3]]}, "r": {"corner": [scramble[2*9+0], scramble[2*9+2], scramble[2*9+8], scramble[2*9+6]], "edge": [scramble[2*9+1], scramble[2*9+5], scramble[2*9+7], scramble[2*9+3]]}, "b": {"corner": [scramble[3*9+0], scramble[3*9+2], scramble[3*9+8], scramble[3*9+6]], "edge": [scramble[3*9+1], scramble[3*9+5], scramble[3*9+7], scramble[3*9+3]]}, "o": {"corner": [scramble[4*9+0], scramble[4*9+2], scramble[4*9+8], scramble[4*9+6]], "edge": [scramble[4*9+1], scramble[4*9+5], scramble[4*9+7], scramble[4*9+3]]}, "y": {"corner": [scramble[5*9+0], scramble[5*9+2], scramble[5*9+8], scramble[5*9+6]], "edge": [scramble[5*9+1], scramble[0*9+5], scramble[0*9+7], scramble[0*9+3]]},}
+			self.cube = {"w": {"corner": [scramble[0*9+0], scramble[0*9+2], scramble[0*9+8], scramble[0*9+6]], "edge": [scramble[0*9+1], scramble[0*9+5], scramble[0*9+7], scramble[0*9+3]]}, 
+			"g": {"corner": [scramble[1*9+0], scramble[1*9+2], scramble[1*9+8], scramble[1*9+6]], "edge": [scramble[1*9+1], scramble[1*9+5], scramble[1*9+7], scramble[1*9+3]]}, 
+			"r": {"corner": [scramble[2*9+0], scramble[2*9+2], scramble[2*9+8], scramble[2*9+6]], "edge": [scramble[2*9+1], scramble[2*9+5], scramble[2*9+7], scramble[2*9+3]]}, 
+			"b": {"corner": [scramble[3*9+0], scramble[3*9+2], scramble[3*9+8], scramble[3*9+6]], "edge": [scramble[3*9+1], scramble[3*9+5], scramble[3*9+7], scramble[3*9+3]]}, 
+			"o": {"corner": [scramble[4*9+0], scramble[4*9+2], scramble[4*9+8], scramble[4*9+6]], "edge": [scramble[4*9+1], scramble[4*9+5], scramble[4*9+7], scramble[4*9+3]]}, 
+			"y": {"corner": [scramble[5*9+0], scramble[5*9+2], scramble[5*9+8], scramble[5*9+6]], "edge": [scramble[5*9+1], scramble[5*9+5], scramble[5*9+7], scramble[5*9+3]]}}
 		else:
 
 			moves = ["u", "u'", "u2", "r", "r'", "r2", "l", "l'", "l2", "d", "d'", "d2", "f", "f'", "f2", "b", "b'", "b2"]
-			for i in range(5):
+			for i in range(40):
 				x = random.randint(0,17)
 				self.move(moves[x])
 
@@ -191,13 +196,8 @@ class cube():
 			scramble += self.cube[color]["corner"][3]
 			scramble += self.cube[color]["edge"][2]
 			scramble += self.cube[color]["corner"][2]
-		return scramble
 
-
-
-
-
-
+		return scramble 
 
 	def solved_0(self):
 		if self.cube["w"]["edge"].count("b")==0:
@@ -272,5 +272,10 @@ if __name__ == "__main__":
 			break
 		elif x == "s":
 			cub.scramble()
+		elif x == "v":
+			print(cub.get_state())
 		else:
-			cub.move(x)
+			if len(x) == 54:
+				cub.scramble(scramble=x)
+			else:
+				cub.move(x)
