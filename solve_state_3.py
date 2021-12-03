@@ -60,7 +60,7 @@ def solve(scramble:str):
 
     cube = cube_3x3.cube()
     cube.scramble(scramble=scramble)
-    if cube.solved_3:
+    if cube.solved_3():
         return (True, cube.get_state(), [])
 
     for i in range(20):

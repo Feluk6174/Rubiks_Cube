@@ -68,7 +68,7 @@ def solve(scramble:str):
     possible_moves = gen_possible_moves([])
     cube = cube_3x3.cube()
     cube.scramble(scramble=scramble)
-    if cube.solved_2:
+    if cube.solved_2():
         return (True, cube.get_state(), [])
 
 
