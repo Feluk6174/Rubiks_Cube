@@ -66,6 +66,11 @@ def gen_moves(d:int, m_d:int, moves:list, possible_moves:list, scramble:str):
 
 def solve(scramble:str):
     possible_moves = gen_possible_moves([])
+    cube = cube_3x3.cube()
+    cube.scramble(scramble=scramble)
+    if cube.solved_2:
+        return (True, cube.get_state(), [])
+
 
     for i in range(20):
         solved = gen_moves(0, i, [], possible_moves, scramble)
