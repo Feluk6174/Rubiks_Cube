@@ -67,3 +67,6 @@ if cube.cube["w"]["edge"].count("w")+cube.cube["w"]["edge"].count("y")==4:
                                             if cube.cube["o"]["corner"].count("r")+cube.cube["o"]["corner"].count("o")==4:
                                                 RLFBUD_block=1
                                                 print (RLFBUD_block)
+
+s = "hello test"
+print(len(s))
