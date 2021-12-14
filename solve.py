@@ -1,3 +1,5 @@
+import cProfile 
+
 def main():
     import cube_3x3, solve_state_0, solve_state_1, solve_state_2, solve_state_3
 
@@ -29,4 +31,4 @@ def main():
         print("Incorrect scramble: "+extra)
 
 if __name__ == "__main__":
-    main()
+    cProfile.run("main()")

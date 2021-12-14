@@ -1,29 +1,20 @@
-import test, test2
+import math
 
-times_m1 = []
-times_m2 = []
-for i in range(40):
-    print(i)
-    times_m1.append(test.timer())
+def print_num(num:int, base:int, possible_moves:list):
+    i = 0
+    moves = []
+    if num == 0:
+        return
+    for i in range(int(math.log(num, base))+1):
+        moves.append(possible_moves[num%base])
+        print(i, num)
+        i+=1
+        num //= base
+    print(moves)
 
-for i in range(40):
-    print(i)
-    times_m2.append(test2.timer())
+for i in range(int(math.pow(18, 3))):
+    pass
+    print_num(i, 18, ['u', "u'", 'u2', 'd', "d'", 'd2', 'r', "r'", 'r2', 'l', "l'", 'l2', 'f', "f'", 'f2', 'b', "b'", 'b2'])
 
-total = 0
-for time in times_m1:
-    total += time
-
-avg_m1 = total/len(times_m1)
-
-total = 0
-for time in times_m2:
-    total += time
-
-avg_m2 = total/len(times_m1)
-
-print(avg_m1)
-print(times_m1)
-
-print(avg_m2)
-print(times_m2)
+#print(print_num(324, 18, ['u', "u'", 'u2', 'd', "d'", 'd2', 'r', "r'", 'r2', 'l', "l'", 'l2', 'f', "f'", 'f2', 'b', "b'", 'b2']))
+#print(print_num(323, 18, ['u', "u'", 'u2', 'd', "d'", 'd2', 'r', "r'", 'r2', 'l', "l'", 'l2', 'f', "f'", 'f2', 'b', "b'", 'b2']))
